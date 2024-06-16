@@ -5,17 +5,22 @@
 package View;
 
 import Controller.addMhsController;
+import Model.mahasiswa;
+import Model.matkul;
+
+import static java.lang.Integer.parseInt;
 
 /**
  *
  * @author M Zayan Hafizh H
  */
 public class addMahasiswa_identitas extends javax.swing.JFrame {
-
+    private mahasiswa new_mhs;
     /**
      * Creates new form addMahasiswa
      */
     public addMahasiswa_identitas() {
+        new_mhs = new mahasiswa();
         initComponents();
     }
 
@@ -146,8 +151,14 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
 
     private void entrimatkul_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrimatkul_buttonActionPerformed
         // TODO add your handling code here:
-        addMhsController addMhs = new addMhsController();
-        addMhs.addIdentity(nama_txt.getText());
+        new_mhs.setNama(nama_txt.getText());
+        new_mhs.setNim(parseInt(nim_txt.getText()));
+        new_mhs.setKelas(kelas_txt.getText());
+        new_mhs.setDosen_pa(dosenpa_txt.getText());
+
+        addMahasiswa_matkul addMatkul = new addMahasiswa_matkul(new_mhs); // Meneruskan objek mahasiswa
+        addMatkul.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_entrimatkul_buttonActionPerformed
 
     /**

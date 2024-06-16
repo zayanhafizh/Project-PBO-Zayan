@@ -4,6 +4,8 @@
  */
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author M Zayan Hafizh H
@@ -14,12 +16,14 @@ public class mahasiswa {
     private int nim;
     private String nama;
     private String kelas;
-    private matkul matkul;
+    private ArrayList<matkul> daftarMatkul;
     private String dosen_pa;
     private String lulus;
+    private double ipk;
 
     public mahasiswa(){
         this.id = ++instancecount;
+        daftarMatkul = new ArrayList<>();
     }
 
     public static int getInstancecount() {
@@ -34,22 +38,6 @@ public class mahasiswa {
         return id;
     }
 
-    public String getKelas() {
-        return kelas;
-    }
-
-    public void setKelas(String kelas) {
-        this.kelas = kelas;
-    }
-
-    public String getDosen_pa() {
-        return dosen_pa;
-    }
-
-    public void setDosen_pa(String dosen_pa) {
-        this.dosen_pa = dosen_pa;
-    }
-    
     public int getNim() {
         return nim;
     }
@@ -66,21 +54,53 @@ public class mahasiswa {
         this.nama = nama;
     }
 
-    public matkul getMatkul() {
-        return matkul;
+    public String getKelas() {
+        return kelas;
     }
 
-    public void setMatkul(matkul matkul) {
-        this.matkul = matkul;
+    public void setKelas(String kelas) {
+        this.kelas = kelas;
     }
 
-    public String isLulus() {
-        return lulus;
+    public void tambahMatkul(matkul m) {
+        daftarMatkul.add(m);
+    }
+
+    public String getDosen_pa() {
+        return dosen_pa;
+    }
+
+    public void setDosen_pa(String dosen_pa) {
+        this.dosen_pa = dosen_pa;
+    }
+
+    public String getLulus() {
+        if (hitungIPK() > 2.75) {
+            return "lulus";
+        }
+        return "tidak lulus";
     }
 
     public void setLulus(String lulus) {
         this.lulus = lulus;
     }
-    
-    
+
+    public double hitungIPK() {
+        double totalBobotNilai = 0.0;
+        double totalSKS = 0.0;
+
+        for (matkul m : daftarMatkul) {
+            m.setNilaiAkhir(); // Hitung nilai akhir setiap mata kuliah
+            totalBobotNilai += m.getNilaiAkhir(); // Tambahkan bobot nilai dari setiap mata kuliah
+            totalSKS += m.getBobotSks(); // Tambahkan bobot SKS dari setiap mata kuliah
+        }
+
+        if (totalSKS == 0) {
+            ipk = 0.0; // Menghindari pembagian dengan nol
+        } else {
+            ipk = totalBobotNilai / totalSKS; // Hitung IPK
+        }
+    return ipk;
+    }
+
 }
