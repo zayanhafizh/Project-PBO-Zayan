@@ -7,47 +7,41 @@ package View;
 import Model.database;  // Import kelas database
 import java.sql.*;
 import java.util.Vector;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author M Zayan Hafizh H
  */
 public class listNilai extends javax.swing.JFrame {
+
     private String nim;
-    /**
-     * Creates new form listMatkul
-     */
-     public listNilai(String nim) {
+    private final String[] columnNames = {"Id","Nama Matkul", "Nilai Tugas", "Nilai UTS", "Nilai UAS", "Nilai Akhir", "Grade"};
+
+    public listNilai(String nim) {
         this.nim = nim;
         initComponents();
-        fetchData();  // Memanggil method fetchData saat frame dibuka
+        fetchData();
+        addTableClickListener();
     }
 
-        // Method untuk koneksi ke database dan mengambil data berdasarkan NIM
     private void fetchData() {
-        Connection conn = database.java_db();  // Mendapatkan koneksi dari kelas database
+        Connection conn = database.java_db();
         if (conn != null) {
-            // Query SQL untuk mengambil data dari tabel matkul berdasarkan NIM
-            String query = "SELECT nama_matkul, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, grade FROM matkul WHERE nim_mhs = ?";
+            String query = "SELECT * FROM matkul WHERE nim_mhs = ?";
 
             try (PreparedStatement pst = conn.prepareStatement(query)) {
-                pst.setString(1, nim);  // Set NIM parameter
+                pst.setString(1, nim);
                 try (ResultSet rs = pst.executeQuery()) {
-                    // Mengambil metadata untuk mengetahui jumlah kolom
                     ResultSetMetaData rsmd = rs.getMetaData();
                     int columnCount = rsmd.getColumnCount();
 
-                    // Membuat model untuk JTable
                     DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                    model.setColumnIdentifiers(columnNames); // Mengatur kolom dengan nama yang sudah ditentukan
+
                     model.setRowCount(0);  // Menghapus baris yang ada
-                    model.setColumnCount(0);  // Menghapus kolom yang ada
 
-                    // Menambahkan kolom ke model
-                    for (int i = 1; i <= columnCount; i++) {
-                        model.addColumn(rsmd.getColumnName(i));
-                    }
-
-                    // Menambahkan baris ke model
                     while (rs.next()) {
                         Vector<Object> row = new Vector<>();
                         for (int i = 1; i <= columnCount; i++) {
@@ -59,9 +53,24 @@ public class listNilai extends javax.swing.JFrame {
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
-                database.closeConnection(conn);  // Menutup koneksi setelah selesai
+                database.closeConnection(conn);
             }
         }
+    }
+    
+    // Method untuk menambahkan listener klik pada tabel
+    private void addTableClickListener() {
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (!event.getValueIsAdjusting() && jTable1.getSelectedRow() != -1) {
+                    int selectedRow = jTable1.getSelectedRow();
+                    String id = jTable1.getValueAt(selectedRow, 0).toString(); // Ambil NIM dari kolom pertama
+                    editNilai edit_nilai = new editNilai(id,nim);
+                    edit_nilai.setVisible(true); // Tampilkan form editMhs
+                    dispose(); // Tutup form listMahasiswa
+                }
+            }
+        });
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,22 +85,23 @@ public class listNilai extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nama Matkul", "Nilai Tugas", "Nilai UTS", "Nilai UAS", "Nilai Akhir", "Grade"
+                "", "Nama Matkul", "Nilai Tugas", "Nilai UTS", "Nilai UAS", "Nilai Akhir", "Grade"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -103,26 +113,32 @@ public class listNilai extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
         jLabel1.setText("LIST NILAI MAHASISWA");
 
+        jButton1.setText("Back");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(300, 300, 300))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
 
@@ -134,7 +150,9 @@ public class listNilai extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -177,6 +195,7 @@ public class listNilai extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

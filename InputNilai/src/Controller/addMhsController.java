@@ -11,9 +11,9 @@ public class addMhsController {
     Connection conn = null;
     PreparedStatement pst = null;
 
-    public void addIdentity(int nim, String nama, String kelas, String dosen_pa) {
+    public void addIdentity(int nim, String nama, String kelas, String dosen_pa, String jenis_kelamin) {
         conn = database.java_db(); // Koneksi ke database
-        String sql = "INSERT INTO mahasiswa (nim, nama, kelas, dosen_pa) VALUES (?, ?, ?, ? )";
+        String sql = "INSERT INTO mahasiswa (nim, nama, kelas, dosen_pa, jenis_kelamin) VALUES (?, ?, ?, ?, ? )";
 
         try {
             // Prepare the SQL statement
@@ -22,6 +22,7 @@ public class addMhsController {
             pst.setString(2, nama);
             pst.setString(3, kelas);
             pst.setString(4, dosen_pa);
+            pst.setString(5, jenis_kelamin);
 
             // Execute the insert operation
             int rowsInserted = pst.executeUpdate();

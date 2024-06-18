@@ -18,8 +18,15 @@ public class mahasiswa {
     private String kelas;
     private ArrayList<matkul> daftarMatkul;
     private String dosen_pa;
-    private String lulus;
-    private double ipk;
+    private String jenis_kelamin;
+
+    public String getJK() {
+        return jenis_kelamin;
+    }
+
+    public void setJK(String jenis_kelamin) {
+        this.jenis_kelamin = jenis_kelamin;
+    }
 
     public mahasiswa(){
         this.id = ++instancecount;
@@ -74,33 +81,23 @@ public class mahasiswa {
         this.dosen_pa = dosen_pa;
     }
 
-    public String getLulus() {
-        if (hitungIPK() > 2.75) {
-            return "lulus";
-        }
-        return "tidak lulus";
-    }
 
-    public void setLulus(String lulus) {
-        this.lulus = lulus;
-    }
-
-    public double hitungIPK() {
-        double totalBobotNilai = 0.0;
-        double totalSKS = 0.0;
-
-        for (matkul m : daftarMatkul) {
-            m.setNilaiAkhir(); // Hitung nilai akhir setiap mata kuliah
-            totalBobotNilai += m.getNilaiAkhir(); // Tambahkan bobot nilai dari setiap mata kuliah
-            totalSKS += m.getBobotSks(); // Tambahkan bobot SKS dari setiap mata kuliah
-        }
-
-        if (totalSKS == 0) {
-            ipk = 0.0; // Menghindari pembagian dengan nol
-        } else {
-            ipk = totalBobotNilai / totalSKS; // Hitung IPK
-        }
-    return ipk;
-    }
+//    public double hitungIPK() {
+//        double totalBobotNilai = 0.0;
+//        double totalSKS = 0.0;
+//
+//        for (matkul m : daftarMatkul) {
+//            m.setNilaiAkhir(); // Hitung nilai akhir setiap mata kuliah
+//            totalBobotNilai += m.getNilaiAkhir(); // Tambahkan bobot nilai dari setiap mata kuliah
+//            totalSKS += m.getBobotSks(); // Tambahkan bobot SKS dari setiap mata kuliah
+//        }
+//
+//        if (totalSKS == 0) {
+//            ipk = 0.0; // Menghindari pembagian dengan nol
+//        } else {
+//            ipk = totalBobotNilai / totalSKS; // Hitung IPK
+//        }
+//    return ipk;
+//    }
 
 }

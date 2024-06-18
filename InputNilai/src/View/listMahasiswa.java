@@ -75,17 +75,14 @@ public class listMahasiswa extends javax.swing.JFrame {
                 if (!event.getValueIsAdjusting() && jTable1.getSelectedRow() != -1) {
                     int selectedRow = jTable1.getSelectedRow();
                     String nim = jTable1.getValueAt(selectedRow, 0).toString(); // Ambil NIM dari kolom pertama
-                    openListMatkul(nim);
+                    editMhs edit_mhs = new editMhs(nim);
+                    edit_mhs.setVisible(true); // Tampilkan form editMhs
+                    dispose(); // Tutup form listMahasiswa
                 }
             }
         });
     }
 
-    // Method untuk membuka form listMatkul dengan NIM
-    private void openListMatkul(String nim) {
-        listNilai matkulFrame = new listNilai(nim);
-        matkulFrame.setVisible(true);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -161,14 +158,14 @@ public class listMahasiswa extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(keyword_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(search_button)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addGap(46, 46, 46))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -179,7 +176,7 @@ public class listMahasiswa extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
