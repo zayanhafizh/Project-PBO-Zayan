@@ -26,6 +26,7 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
     public addMahasiswa_matkul(mahasiswa mhs) { // Terima objek mahasiswa sebagai parameter konstruktor
         this.mhs = mhs; // Inisialisasi objek mahasiswa dari parameter konstruktor
         new_matkul = new matkul();
+        new_matkul.setNim(mhs.getNim());
         initComponents();
     }
 
@@ -55,7 +56,6 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
         submit_button = new javax.swing.JButton();
         nilaiakhir_button = new javax.swing.JButton();
         grade_button = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,65 +124,53 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        jButton2.setText("Kembali");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(jLabel9)
+                        .addGap(32, 32, 32))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(186, 186, 186)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(29, 29, 29)
-                                        .addComponent(jLabel9)
-                                        .addGap(38, 38, 38))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(submit_button)
-                                        .addGap(9, 9, 9)))))
+                        .addGap(134, 134, 134)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(namamatkul_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nilaitugas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nilaiuts_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nilaiuas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nilaiakhir_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(grade_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                                .addComponent(nilaiakhir_button)
-                                .addGap(43, 43, 43)
-                                .addComponent(grade_button)))))
-                .addGap(56, 56, 56))
+                            .addComponent(submit_button)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel8)))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(namamatkul_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nilaitugas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nilaiuts_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nilaiuas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nilaiakhir_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(grade_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(nilaiakhir_button)
+                        .addGap(104, 104, 104)
+                        .addComponent(grade_button)))
+                .addContainerGap(147, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(226, 226, 226))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(66, 66, 66)
                 .addComponent(jLabel1)
-                .addGap(68, 68, 68)
+                .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(namamatkul_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
@@ -206,13 +194,12 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(grade_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submit_button)
                     .addComponent(nilaiakhir_button)
-                    .addComponent(grade_button)
-                    .addComponent(jButton2))
-                .addGap(38, 38, 38))
+                    .addComponent(grade_button))
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -235,54 +222,39 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
 
     private void grade_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grade_txtActionPerformed
         // TODO add your handling code here:
+        new_matkul.setGrade();
+        grade_txt.setText(String.valueOf(new_matkul.getGrade()));
     }//GEN-LAST:event_grade_txtActionPerformed
 
     private void submit_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit_buttonActionPerformed
         // TODO add your handling code here:
-        mhs.tambahMatkul(new_matkul);
-        System.out.println(mhs.getNama());
+        
+        
         addMhsController addMhs = new addMhsController();
-        String nama_mhs = mhs.getNama();
-        Integer nim = mhs.getNim();
-        String kelas = mhs.getKelas();
-        String dosen_pa = mhs.getDosen_pa();
-        String lulus = mhs.getLulus();
-        Double ipk = mhs.hitungIPK();
-        addMhs.addIdentity(nim,nama_mhs,kelas,dosen_pa,lulus,ipk);
-
-
-        // Tampilkan konfirmasi menggunakan JOptionPane
-        int option = JOptionPane.showConfirmDialog(this,
-                "Apakah Anda ingin menginputkan mata kuliah lagi?",
-                "Konfirmasi",
-                JOptionPane.YES_NO_OPTION);
-
-        if (option == JOptionPane.YES_OPTION) {
-            resetForm(); // Reset form jika pengguna ingin menginputkan lagi
+        int jawab = JOptionPane.showOptionDialog(this,
+            "Apakah Anda ingin memasukkan matkul lain?",
+            "Pilihan",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null, null, null);
+        if (jawab == JOptionPane.YES_OPTION) {
+            addMhs.addMatkul(new_matkul.getNim(),new_matkul.getNamaMatkul(), new_matkul.getNilaiTugas(), new_matkul.getNilaiUTS(), new_matkul.getNilaiUAS(), new_matkul.getNilaiAkhir(),String.valueOf(new_matkul.getGrade()));
+            new addMahasiswa_matkul(mhs).setVisible(true);
         } else {
-            // Jika tidak ingin input lagi, simpan semua matkul ke dalam objek mahasiswa
-            saveAllMatkulToMahasiswa();
-            JOptionPane.showMessageDialog(this, "Input mata kuliah selesai.");
-            // Lakukan aksi lain, misalnya, kembali ke form sebelumnya atau menampilkan informasi lain
+            addMhs.addMatkul(new_matkul.getNim(),new_matkul.getNamaMatkul(), new_matkul.getNilaiTugas(), new_matkul.getNilaiUTS(), new_matkul.getNilaiUAS(), new_matkul.getNilaiAkhir(),String.valueOf(new_matkul.getGrade()));
+            new mainMenu().setVisible(true);
         }
-
-        // Method untuk menyimpan semua matkul ke dalam objek mahasiswa
-        private void saveAllMatkulToMahasiswa() {
-            for (matkul m : listMatkul) {
-                mhs.tambahMatkul(m);
-            }
-        }
+        this.dispose(); // Tutup form saat ini
     }//GEN-LAST:event_submit_buttonActionPerformed
 
     private void nilaiakhir_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nilaiakhir_buttonActionPerformed
         // TODO add your handling code here:
-        new_matkul.setNamaMatkul(String.valueOf(namamatkul_txt));
+        new_matkul.setNamaMatkul(String.valueOf(namamatkul_txt.getText()));
         new_matkul.setNilaiTugas(parseDouble(nilaitugas_txt.getText()));
         new_matkul.setNilaiUTS(parseDouble(nilaiuts_txt.getText()));
         new_matkul.setNilaiUAS(parseDouble(nilaiuas_txt.getText()));
         new_matkul.setNilaiAkhir();
         nilaiakhir_txt.setText(String.valueOf(new_matkul.getNilaiAkhir()));
-
     }//GEN-LAST:event_nilaiakhir_buttonActionPerformed
 
     private void grade_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grade_buttonActionPerformed
@@ -290,10 +262,6 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
         new_matkul.setGrade();
         grade_txt.setText(String.valueOf(new_matkul.getGrade()));
     }//GEN-LAST:event_grade_buttonActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void nilaiuas_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nilaiuas_txtActionPerformed
         // TODO add your handling code here:
@@ -344,7 +312,6 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton grade_button;
     private javax.swing.JTextField grade_txt;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

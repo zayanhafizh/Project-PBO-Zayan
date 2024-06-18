@@ -8,6 +8,15 @@ public class matkul {
     private double nilaiUAS;
     private double nilaiTugas;
     private double nilaiAkhir;
+    private int nim_mhs;
+
+    public int getNim() {
+        return nim_mhs;
+    }
+
+    public void setNim(int nim_mhs) {
+        this.nim_mhs = nim_mhs;
+    }
     private int bobotSks=18;
 
     private char grade;

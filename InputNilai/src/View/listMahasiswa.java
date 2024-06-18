@@ -4,6 +4,13 @@
  */
 package View;
 
+import Model.database;  // Import kelas database
+import java.sql.*;
+import java.util.Vector;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author M Zayan Hafizh H
@@ -15,6 +22,69 @@ public class listMahasiswa extends javax.swing.JFrame {
      */
     public listMahasiswa() {
         initComponents();
+        fetchData();  // Memanggil method fetchData saat frame dibuka
+        addTableClickListener();  // Tambahkan pemanggilan method addTableClickListener
+
+    }
+
+     // Method untuk koneksi ke database dan mengambil data
+    private void fetchData() {
+        Connection conn = database.java_db();  // Mendapatkan koneksi dari kelas database
+
+        if (conn != null) {
+            // Query SQL untuk mengambil data dari tabel mahasiswa
+            String query = "SELECT nim, nama, kelas, dosen_pa FROM mahasiswa";
+
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(query)) {
+
+                // Mengambil metadata untuk mengetahui jumlah kolom
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
+
+                // Membuat model untuk JTable
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.setRowCount(0);  // Menghapus baris yang ada
+                model.setColumnCount(0);  // Menghapus kolom yang ada
+
+                // Menambahkan kolom ke model
+                for (int i = 1; i <= columnCount; i++) {
+                    model.addColumn(rsmd.getColumnName(i));
+                }
+
+                // Menambahkan baris ke model
+                while (rs.next()) {
+                    Vector<Object> row = new Vector<>();
+                    for (int i = 1; i <= columnCount; i++) {
+                        row.add(rs.getObject(i));
+                    }
+                    model.addRow(row);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                database.closeConnection(conn);  // Menutup koneksi setelah selesai
+            }
+        }
+    }
+
+    // Method untuk menambahkan listener klik pada tabel
+    private void addTableClickListener() {
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                if (!event.getValueIsAdjusting() && jTable1.getSelectedRow() != -1) {
+                    int selectedRow = jTable1.getSelectedRow();
+                    String nim = jTable1.getValueAt(selectedRow, 0).toString(); // Ambil NIM dari kolom pertama
+                    openListMatkul(nim);
+                }
+            }
+        });
+    }
+
+    // Method untuk membuka form listMatkul dengan NIM
+    private void openListMatkul(String nim) {
+        listNilai matkulFrame = new listNilai(nim);
+        matkulFrame.setVisible(true);
     }
 
     /**
@@ -122,7 +192,7 @@ public class listMahasiswa extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

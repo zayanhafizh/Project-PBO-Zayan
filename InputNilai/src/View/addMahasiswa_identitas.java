@@ -157,6 +157,8 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
         new_mhs.setDosen_pa(dosenpa_txt.getText());
 
         addMahasiswa_matkul addMatkul = new addMahasiswa_matkul(new_mhs); // Meneruskan objek mahasiswa
+        addMhsController addMhs = new addMhsController();
+        addMhs.addIdentity(new_mhs.getNim(), new_mhs.getNama(), new_mhs.getKelas(), new_mhs.getDosen_pa());
         addMatkul.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_entrimatkul_buttonActionPerformed

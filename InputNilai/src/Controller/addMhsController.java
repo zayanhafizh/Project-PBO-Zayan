@@ -11,9 +11,9 @@ public class addMhsController {
     Connection conn = null;
     PreparedStatement pst = null;
 
-    public void addIdentity(int nim, String nama, String kelas, String dosen_pa, String lulus, double ipk) {
+    public void addIdentity(int nim, String nama, String kelas, String dosen_pa) {
         conn = database.java_db(); // Koneksi ke database
-        String sql = "INSERT INTO mahasiswa (nim, nama, kelas, dosen_pa, lulus, ipk) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO mahasiswa (nim, nama, kelas, dosen_pa) VALUES (?, ?, ?, ? )";
 
         try {
             // Prepare the SQL statement
@@ -22,17 +22,13 @@ public class addMhsController {
             pst.setString(2, nama);
             pst.setString(3, kelas);
             pst.setString(4, dosen_pa);
-            pst.setString(5, lulus);
-            pst.setDouble(6, ipk);
 
             // Execute the insert operation
             int rowsInserted = pst.executeUpdate();
 
             // Check if the insert was successful
             if (rowsInserted > 0) {
-                JOptionPane.showMessageDialog(null, "Data successfully inserted.");
-                mainMenu main = new mainMenu();
-                main.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Data mahasiswa successfully inserted.");
             } else {
                 JOptionPane.showMessageDialog(null, "Failed to insert data.");
             }
@@ -52,9 +48,9 @@ public class addMhsController {
         }
     }
     
-    public void addMatkul(int nim, String nama_matkul, double nilai_tugas, double nilai_uts, double nilai_uas, double nilai_akhir,int id_mhs) {
+    public void addMatkul(int nim_mhs, String nama_matkul, double nilai_tugas, double nilai_uts, double nilai_uas, double nilai_akhir, String grade) {
         conn = database.java_db(); // Koneksi ke database
-        String sql = "INSERT INTO matkul(nama_matkul, nilai_tugas, nilai_uts, nilai_uas, id_mhs) VALUES (?, ?, ?, ?, ?,?)";
+        String sql = "INSERT INTO matkul(nama_matkul, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, nim_mhs, grade) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
             // Prepare the SQL statement
@@ -64,7 +60,8 @@ public class addMhsController {
             pst.setDouble(3, nilai_uts);
             pst.setDouble(4, nilai_uas);
             pst.setDouble(5, nilai_akhir);
-            pst.setInt(6, id_mhs);
+            pst.setInt(6, nim_mhs);
+            pst.setString(7, grade);
 
             // Execute the insert operation
             int rowsInserted = pst.executeUpdate();
