@@ -4,6 +4,8 @@
  */
 package app;
 
+import View.login;
+
 /**
  *
  * @author M Zayan Hafizh H
@@ -15,6 +17,8 @@ public class InputNilai {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        login login = new login();
+        login.setVisible(true);
     }
     
 }

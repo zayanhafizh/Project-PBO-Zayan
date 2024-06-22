@@ -6,10 +6,22 @@ package View;
 
 import javax.swing.JOptionPane;
 import Model.database;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFileChooser;
 /**
  *
  * @author M Zayan Hafizh H
@@ -64,6 +76,106 @@ private String id;
             }
         }
     }
+    
+    private void exportDataToPDF() {
+        JFileChooser fileChooser = new JFileChooser();
+        int option = fileChooser.showSaveDialog(this);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            try {
+                Document document = new Document();
+                PdfWriter.getInstance(document, new FileOutputStream(file));
+                document.open();
+
+                // Menambahkan paragraf pembuka
+                document.add(new Paragraph("Detail Identitas Mahasiswa\n\n"));
+
+                // Menambah data mahasiswa
+                Connection conn = database.java_db();
+                if (conn != null) {
+                    String query = "SELECT * FROM mahasiswa WHERE nim = ?";
+                    try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                        stmt.setString(1, nim);
+                        ResultSet rs = stmt.executeQuery();
+                        if (rs.next()) {
+                            document.add(new Paragraph("Nama    : " + rs.getString("nama")));
+                            document.add(new Paragraph("NIM     : " + rs.getString("nim")));
+                            document.add(new Paragraph("Kelas   : " + rs.getString("kelas")));
+                            document.add(new Paragraph("Dosen PA: " + rs.getString("dosen_pa")));
+                            document.add(new Paragraph("\nDaftar nilai mahasiswa :\n"));
+                        }
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(this, "Gagal mengambil data dari database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } finally {
+                        database.closeConnection(conn);
+                    }
+                }
+
+                // Membuat tabel dengan header
+                PdfPTable table = new PdfPTable(6); // 6 kolom: nama_matkul, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, grade
+                table.setWidthPercentage(100); // Set lebar tabel menjadi 100%
+                table.setSpacingBefore(10f); // Spasi sebelum tabel
+                table.setSpacingAfter(10f); // Spasi setelah tabel
+
+                // Set kolom lebar (opsional, dapat disesuaikan)
+                float[] columnWidths = {2f, 1f, 1f, 1f, 1f, 1f};
+                table.setWidths(columnWidths);
+
+                // Menambah header tabel
+                String[] headers = {"Nama Matkul", "Nilai Tugas", "Nilai UTS", "Nilai UAS", "Nilai Akhir", "Grade"};
+                for (String header : headers) {
+                    PdfPCell cell = new PdfPCell(new Paragraph(header));
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                    table.addCell(cell);
+                }
+
+                // Mengisi tabel dengan data matkul
+                conn = database.java_db();
+                if (conn != null) {
+                    String query = "SELECT * FROM matkul WHERE nim_mhs = ?";
+                    try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                        stmt.setString(1, nim);
+                        ResultSet rs = stmt.executeQuery();
+                        while (rs.next()) {
+                            PdfPCell cell1 = new PdfPCell(new Paragraph(rs.getString("nama_matkul")));
+                            PdfPCell cell2 = new PdfPCell(new Paragraph(rs.getString("nilai_tugas")));
+                            PdfPCell cell3 = new PdfPCell(new Paragraph(rs.getString("nilai_uts")));
+                            PdfPCell cell4 = new PdfPCell(new Paragraph(rs.getString("nilai_uas")));
+                            PdfPCell cell5 = new PdfPCell(new Paragraph(rs.getString("nilai_akhir")));
+                            PdfPCell cell6 = new PdfPCell(new Paragraph(rs.getString("grade")));
+
+                            cell1.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            cell2.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            cell5.setHorizontalAlignment(Element.ALIGN_LEFT);
+                            cell6.setHorizontalAlignment(Element.ALIGN_LEFT);
+
+                            table.addCell(cell1);
+                            table.addCell(cell2);
+                            table.addCell(cell3);
+                            table.addCell(cell4);
+                            table.addCell(cell5);
+                            table.addCell(cell6);
+                        }
+                        document.add(table); // Menambahkan tabel ke dokumen
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(this, "Gagal mengambil data dari database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    } finally {
+                        database.closeConnection(conn);
+                    }
+                }
+
+                // Menutup dokumen PDF
+                document.close();
+                JOptionPane.showMessageDialog(this, "Data berhasil diekspor ke PDF", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (DocumentException | FileNotFoundException e) {
+                JOptionPane.showMessageDialog(this, "Gagal mengekspor data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,6 +201,7 @@ private String id;
         edit_button = new javax.swing.JButton();
         hapus_button = new javax.swing.JButton();
         listNilai_button = new javax.swing.JButton();
+        export_button = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -135,52 +248,59 @@ private String id;
             }
         });
 
+        export_button.setText("Export to PDF");
+        export_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                export_buttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(186, 186, 186)
+                .addGap(189, 189, 189)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nama_txt)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(kelas_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
+                                        .addComponent(dosenpa_txt, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(nim_txt, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(jk_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(109, 109, 109)
+                                        .addComponent(jLabel6)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(edit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(hapus_button, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(listNilai_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dosenpa_txt)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jk_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(kelas_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                                .addComponent(nama_txt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(nim_txt, javax.swing.GroupLayout.Alignment.LEADING)))))
-                .addGap(242, 242, 242))
+                        .addGap(30, 30, 30)
+                        .addComponent(listNilai_button)
+                        .addGap(30, 30, 30)
+                        .addComponent(export_button, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(189, 189, 189))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addGap(70, 70, 70)
                 .addComponent(jLabel6)
-                .addGap(66, 66, 66)
+                .addGap(70, 70, 70)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nama_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -198,15 +318,16 @@ private String id;
                     .addComponent(jLabel4))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jk_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                    .addComponent(jLabel5)
+                    .addComponent(jk_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hapus_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(listNilai_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                    .addComponent(listNilai_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(export_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(69, 69, 69))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -217,7 +338,9 @@ private String id;
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -305,6 +428,11 @@ private String id;
         this.dispose();
     }//GEN-LAST:event_listNilai_buttonActionPerformed
 
+    private void export_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_export_buttonActionPerformed
+        // TODO add your handling code here:
+        exportDataToPDF();
+    }//GEN-LAST:event_export_buttonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -344,6 +472,7 @@ private String id;
     private javax.swing.JButton back_button;
     private javax.swing.JTextField dosenpa_txt;
     private javax.swing.JButton edit_button;
+    private javax.swing.JToggleButton export_button;
     private javax.swing.JButton hapus_button;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -33,31 +33,26 @@ public class listMahasiswa extends javax.swing.JFrame {
 
         if (conn != null) {
             // Query SQL untuk mengambil data dari tabel mahasiswa
-            String query = "SELECT nim, nama, kelas, dosen_pa FROM mahasiswa";
+            String query = "SELECT nim, nama, kelas, dosen_pa, jenis_kelamin FROM mahasiswa";
 
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(query)) {
 
-                // Mengambil metadata untuk mengetahui jumlah kolom
-                ResultSetMetaData rsmd = rs.getMetaData();
-                int columnCount = rsmd.getColumnCount();
-
                 // Membuat model untuk JTable
                 DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
                 model.setRowCount(0);  // Menghapus baris yang ada
-                model.setColumnCount(0);  // Menghapus kolom yang ada
 
                 // Menambahkan kolom ke model
-                for (int i = 1; i <= columnCount; i++) {
-                    model.addColumn(rsmd.getColumnName(i));
-                }
+                model.setColumnIdentifiers(new String[]{"NIM", "Nama", "Kelas", "Dosen PA", "Jenis Kelamin"});
 
                 // Menambahkan baris ke model
                 while (rs.next()) {
                     Vector<Object> row = new Vector<>();
-                    for (int i = 1; i <= columnCount; i++) {
-                        row.add(rs.getObject(i));
-                    }
+                    row.add(rs.getString("nim"));
+                    row.add(rs.getString("nama"));
+                    row.add(rs.getString("kelas"));
+                    row.add(rs.getString("dosen_pa"));
+                    row.add(rs.getString("jenis_kelamin"));
                     model.addRow(row);
                 }
             } catch (SQLException e) {
@@ -68,6 +63,54 @@ public class listMahasiswa extends javax.swing.JFrame {
         }
     }
 
+    // Method for fetching data from the database
+    private void search(String keyword) {
+        Connection conn = database.java_db();  // Get connection from database class
+
+        if (conn != null) {
+            // SQL query to fetch data from the mahasiswa table
+            String query = "SELECT nim, nama, kelas, dosen_pa, jenis_kelamin FROM mahasiswa";
+            if (!keyword.isEmpty()) {
+                query += " WHERE nim LIKE ? OR nama LIKE ? OR kelas LIKE ? OR dosen_pa LIKE ? OR jenis_kelamin LIKE ?";
+            }
+
+            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+                if (!keyword.isEmpty()) {
+                    String searchKeyword = "%" + keyword + "%";
+                    pstmt.setString(1, searchKeyword);
+                    pstmt.setString(2, searchKeyword);
+                    pstmt.setString(3, searchKeyword);
+                    pstmt.setString(4, searchKeyword);
+                    pstmt.setString(5, searchKeyword);
+                }
+
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    // Create model for JTable
+                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                    model.setRowCount(0);  // Clear existing rows
+
+                    // Add columns to the model
+                    model.setColumnIdentifiers(new String[]{"NIM", "Nama", "Kelas", "Dosen PA", "Jenis Kelamin"});
+
+                    // Add rows to the model
+                    while (rs.next()) {
+                        Vector<Object> row = new Vector<>();
+                        row.add(rs.getString("nim"));
+                        row.add(rs.getString("nama"));
+                        row.add(rs.getString("kelas"));
+                        row.add(rs.getString("dosen_pa"));
+                        row.add(rs.getString("jenis_kelamin"));
+                        model.addRow(row);
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                database.closeConnection(conn);  // Close the connection after use
+            }
+        }
+    }
+    
     // Method untuk menambahkan listener klik pada tabel
     private void addTableClickListener() {
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -100,8 +143,11 @@ public class listMahasiswa extends javax.swing.JFrame {
         keyword_txt = new javax.swing.JTextField();
         search_button = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
+        back_button = new javax.swing.JToggleButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel1.setText("Daftar Nilai Mahasiswa");
@@ -114,11 +160,11 @@ public class listMahasiswa extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "NIM", "Nama", "IPK", "Kelas", "Lulus"
+                "NIM", "Nama", "Kelas", "Dosen PA", "Jenis Kelamin"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Byte.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -128,9 +174,21 @@ public class listMahasiswa extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         search_button.setText("Cari");
+        search_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                search_buttonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         jLabel2.setText("Cari Mahasiswa");
+
+        back_button.setText("Back");
+        back_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,33 +197,36 @@ public class listMahasiswa extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(270, 270, 270)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(90, 90, 90)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(keyword_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(search_button, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(326, 326, 326)
+                        .addComponent(jLabel1)))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(43, 43, 43)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(keyword_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(search_button)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addGap(26, 26, 26)
+                .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -181,6 +242,19 @@ public class listMahasiswa extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void search_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_buttonActionPerformed
+        // TODO add your handling code here:
+         String keyword = keyword_txt.getText().trim();
+         search(keyword);  // Fetch data with the keyword
+    }//GEN-LAST:event_search_buttonActionPerformed
+
+    private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
+        // TODO add your handling code here:
+        mainMenu main = new mainMenu();
+        main.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_back_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +292,7 @@ public class listMahasiswa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton back_button;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

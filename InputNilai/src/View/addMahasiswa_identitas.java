@@ -9,6 +9,7 @@ import Model.mahasiswa;
 import Model.matkul;
 
 import static java.lang.Integer.parseInt;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,8 +40,8 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         nama_txt = new javax.swing.JTextField();
-        nim_txt = new javax.swing.JTextField();
         kelas_txt = new javax.swing.JTextField();
+        nim_txt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         dosenpa_txt = new javax.swing.JTextField();
         back_button = new javax.swing.JButton();
@@ -64,11 +65,22 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel4.setText("Kelas :");
 
+        kelas_txt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kelas_txtActionPerformed(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel5.setText("Dosen PA :");
 
         back_button.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         back_button.setText("Kembali");
+        back_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                back_buttonActionPerformed(evt);
+            }
+        });
 
         entrimatkul_button.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         entrimatkul_button.setText("Entri Data Matkul");
@@ -91,16 +103,21 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
+                        .addGap(94, 94, 94)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(back_button)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(60, 60, 60)
+                                    .addComponent(jLabel2))
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(back_button)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(entrimatkul_button))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(47, 47, 47)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -108,10 +125,7 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
                                     .addComponent(jk_combo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nim_txt, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nama_txt, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dosenpa_txt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(entrimatkul_button))))
+                                    .addComponent(dosenpa_txt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(205, 205, 205)
                         .addComponent(jLabel1)))
@@ -126,31 +140,27 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nama_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(38, 38, 38)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(nim_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jk_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(65, 65, 65))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(kelas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))))
-                .addGap(35, 35, 35)
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(nim_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(kelas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jk_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dosenpa_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(59, 59, 59)
+                .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(back_button)
-                    .addComponent(entrimatkul_button))
-                .addGap(58, 58, 58))
+                    .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(entrimatkul_button, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -161,9 +171,7 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -171,18 +179,44 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
 
     private void entrimatkul_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrimatkul_buttonActionPerformed
         // TODO add your handling code here:
-        new_mhs.setNama(nama_txt.getText());
-        new_mhs.setNim(parseInt(nim_txt.getText()));
-        new_mhs.setKelas(kelas_txt.getText());
-        new_mhs.setDosen_pa(dosenpa_txt.getText());
-        new_mhs.setJK(String.valueOf(jk_combo.getSelectedItem()));
+        String nama = nama_txt.getText().trim();
+        String nimStr = nim_txt.getText().trim();
+        String kelas = kelas_txt.getText().trim();
+        String dosenPa = dosenpa_txt.getText().trim();
+        String jenisKelamin = String.valueOf(jk_combo.getSelectedItem());
 
-        addMahasiswa_matkul addMatkul = new addMahasiswa_matkul(new_mhs); // Meneruskan objek mahasiswa
-        addMhsController addMhs = new addMhsController();
-        addMhs.addIdentity(new_mhs.getNim(), new_mhs.getNama(), new_mhs.getKelas(), new_mhs.getDosen_pa(), new_mhs.getJK());
-        addMatkul.setVisible(true);
-        this.dispose();
+        if (nama.isEmpty() || nimStr.isEmpty() || kelas.isEmpty() || dosenPa.isEmpty() || jenisKelamin.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mohon lengkapi semua kolom!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                int nim = Integer.parseInt(nimStr);
+                new_mhs.setNama(nama);
+                new_mhs.setNim(nim);
+                new_mhs.setKelas(kelas);
+                new_mhs.setDosen_pa(dosenPa);
+                new_mhs.setJK(jenisKelamin);
+
+                addMahasiswa_matkul addMatkul = new addMahasiswa_matkul(new_mhs); // Meneruskan objek mahasiswa
+                addMhsController addMhs = new addMhsController();
+                addMhs.addIdentity(new_mhs.getNim(), new_mhs.getNama(), new_mhs.getKelas(), new_mhs.getDosen_pa(), new_mhs.getJK());
+                addMatkul.setVisible(true);
+                this.dispose();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "NIM harus berupa angka!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_entrimatkul_buttonActionPerformed
+
+    private void kelas_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelas_txtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kelas_txtActionPerformed
+
+    private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
+        // TODO add your handling code here:
+        mainMenu main = new mainMenu();
+        main.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_back_buttonActionPerformed
 
     /**
      * @param args the command line arguments

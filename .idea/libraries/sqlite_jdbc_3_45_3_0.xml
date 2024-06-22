@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="sqlite-jdbc-3.45.3.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/sqlite-jdbc-3.45.3.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/slf4j-api-1.7.30.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/logback-core-1.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/logback-classic-1.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/rs2xml.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/rs2xml.jar!/src" />
+    </SOURCES>
+  </library>
+</component>
