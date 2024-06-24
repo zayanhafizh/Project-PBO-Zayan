@@ -102,6 +102,18 @@ private String nim;
     }
     
      private void addListeners() {
+         namamatkul_txt.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+                updateNilaiAkhirAndGrade();
+            }
+            public void removeUpdate(DocumentEvent e) {
+                updateNilaiAkhirAndGrade();
+            }
+            public void insertUpdate(DocumentEvent e) {
+                updateNilaiAkhirAndGrade();
+            }
+        });
+         
         nilaitugas_txt.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 updateNilaiAkhirAndGrade();
@@ -141,9 +153,11 @@ private String nim;
 
     private void updateNilaiAkhirAndGrade() {
         try {
+            String nama_matkul = namamatkul_txt.getText();
             double nilaiTugas = Double.parseDouble(nilaitugas_txt.getText());
             double nilaiUTS = Double.parseDouble(nilaiuts_txt.getText());
             double nilaiUAS = Double.parseDouble(nilaiuas_txt.getText());
+            new_matkul.setNamaMatkul(nama_matkul);
             new_matkul.setNilaiTugas(nilaiTugas);
             new_matkul.setNilaiUTS(nilaiUTS);
             new_matkul.setNilaiUAS(nilaiUAS);
@@ -151,6 +165,7 @@ private String nim;
             new_matkul.setGrade();
             nilaiakhir_txt.setText(String.valueOf(new_matkul.getNilaiAkhir()));
             grade_txt.setText(String.valueOf(new_matkul.getGrade()));
+            System.out.println(nama_matkul);
         } catch (NumberFormatException e) {
             // Handle potential parsing errors here if needed
         }
@@ -159,7 +174,7 @@ private String nim;
     private void editNilaiToDatabase() {
         Connection conn = database.java_db();
         if (conn != null) {
-            String query = "UPDATE matkul SET nilai_tugas = ?, nilai_uts = ?, nilai_uas = ?, nilai_akhir = ?, grade = ? WHERE id = ?";
+            String query = "UPDATE matkul SET nilai_tugas = ?, nilai_uts = ?, nilai_uas = ?, nilai_akhir = ?, grade = ? , nama_matkul = ? WHERE id = ?";
 
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setDouble(1, new_matkul.getNilaiTugas());
@@ -167,11 +182,13 @@ private String nim;
                 stmt.setDouble(3, new_matkul.getNilaiUAS());
                 stmt.setDouble(4, new_matkul.getNilaiAkhir());
                 stmt.setString(5, String.valueOf(new_matkul.getGrade()));
-                stmt.setString(6, id);
+                stmt.setString(6, new_matkul.getNamaMatkul());
+                stmt.setString(7, id);
                 int rowsAffected = stmt.executeUpdate();
 
                 if (rowsAffected > 0) {
                     JOptionPane.showMessageDialog(this, "Data nilai berhasil diperbarui", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "Data nilai gagal diperbarui", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -241,6 +258,9 @@ private String nim;
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jPanel2.setBackground(new java.awt.Color(153, 204, 255));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+
         nilaiakhir_txt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nilaiakhir_txtActionPerformed(evt);
@@ -253,22 +273,22 @@ private String nim;
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel1.setText("Nama Matkul :");
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel2.setText("Nilai Tugas :");
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel3.setText("Nilai UTS :");
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel4.setText("Nilai UAS :");
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel5.setText("Nilai Akhir :");
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel6.setText("Grade :");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -321,12 +341,15 @@ private String nim;
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(grade_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(24, 24, 24))
+                .addGap(45, 45, 45))
         );
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
         jLabel7.setText("DETAIL INFORMASI NILAI MAHASISWA");
 
+        back_button.setBackground(new java.awt.Color(0, 0, 255));
+        back_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        back_button.setForeground(new java.awt.Color(255, 255, 255));
         back_button.setText("Back");
         back_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -334,6 +357,9 @@ private String nim;
             }
         });
 
+        edit_button.setBackground(new java.awt.Color(0, 0, 255));
+        edit_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        edit_button.setForeground(new java.awt.Color(255, 255, 255));
         edit_button.setText("Edit");
         edit_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -341,6 +367,9 @@ private String nim;
             }
         });
 
+        delete_button.setBackground(new java.awt.Color(0, 0, 255));
+        delete_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        delete_button.setForeground(new java.awt.Color(255, 255, 255));
         delete_button.setText("Delete");
         delete_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -373,7 +402,7 @@ private String nim;
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(34, 34, 34)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

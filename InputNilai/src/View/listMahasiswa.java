@@ -173,6 +173,9 @@ public class listMahasiswa extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        search_button.setBackground(new java.awt.Color(0, 0, 255));
+        search_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        search_button.setForeground(new java.awt.Color(255, 255, 255));
         search_button.setText("Cari");
         search_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,9 +183,12 @@ public class listMahasiswa extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel2.setText("Cari Mahasiswa");
 
+        back_button.setBackground(new java.awt.Color(0, 0, 255));
+        back_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        back_button.setForeground(new java.awt.Color(255, 255, 255));
         back_button.setText("Back");
         back_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,10 +207,10 @@ public class listMahasiswa extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(keyword_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(keyword_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(search_button, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()

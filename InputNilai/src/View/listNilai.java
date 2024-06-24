@@ -5,6 +5,7 @@
 package View;
 
 import Model.database;  // Import kelas database
+import Model.mahasiswa;
 import java.sql.*;
 import java.util.Vector;
 import javax.swing.event.ListSelectionEvent;
@@ -29,7 +30,7 @@ public class listNilai extends javax.swing.JFrame {
     private void fetchData() {
         Connection conn = database.java_db();
         if (conn != null) {
-            String query = "SELECT * FROM matkul WHERE nim_mhs = ?";
+            String query = "SELECT id, nama_matkul, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, grade FROM matkul WHERE nim_mhs = ?";
 
             try (PreparedStatement pst = conn.prepareStatement(query)) {
                 pst.setString(1, nim);
@@ -86,9 +87,13 @@ public class listNilai extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         back_button = new javax.swing.JButton();
+        tambahnilai_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
@@ -108,15 +113,30 @@ public class listNilai extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
+        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
         jLabel1.setText("LIST NILAI MAHASISWA");
 
+        back_button.setBackground(new java.awt.Color(0, 0, 255));
+        back_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        back_button.setForeground(new java.awt.Color(255, 255, 255));
         back_button.setText("Back");
         back_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 back_buttonActionPerformed(evt);
+            }
+        });
+
+        tambahnilai_button.setBackground(new java.awt.Color(0, 0, 255));
+        tambahnilai_button.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tambahnilai_button.setForeground(new java.awt.Color(255, 255, 255));
+        tambahnilai_button.setText("Tambah Data Nilai");
+        tambahnilai_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tambahnilai_buttonActionPerformed(evt);
             }
         });
 
@@ -131,20 +151,25 @@ public class listNilai extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(tambahnilai_button))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 816, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(43, 43, 43)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tambahnilai_button, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(63, 63, 63))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,6 +193,16 @@ public class listNilai extends javax.swing.JFrame {
         editMhs edit = new editMhs(nim);
         edit.setVisible(true);
     }//GEN-LAST:event_back_buttonActionPerformed
+
+    private void tambahnilai_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahnilai_buttonActionPerformed
+         // Buat objek mahasiswa dengan nim yang diterima dari konstruktor
+        mahasiswa mhs = new mahasiswa();
+        mhs.setNim(Integer.parseInt(nim)); // Atur nim berdasarkan nilai yang diterima
+
+        addMahasiswa_matkul add_mahasiswa_matkul = new addMahasiswa_matkul(mhs);
+        add_mahasiswa_matkul.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_tambahnilai_buttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,5 +246,6 @@ public class listNilai extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton tambahnilai_button;
     // End of variables declaration//GEN-END:variables
 }

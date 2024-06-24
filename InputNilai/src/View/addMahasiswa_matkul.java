@@ -41,38 +41,71 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        submit_button = new javax.swing.JButton();
+        nilaiakhir_button = new javax.swing.JButton();
+        grade_button = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         namamatkul_txt = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         nilaitugas_txt = new javax.swing.JTextField();
-        nilaiuts_txt = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        nilaiuts_txt = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         nilaiuas_txt = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         nilaiakhir_txt = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         grade_txt = new javax.swing.JTextField();
-        submit_button = new javax.swing.JButton();
-        nilaiakhir_button = new javax.swing.JButton();
-        grade_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
         jLabel1.setText("TAMBAHKAN DATA MATA KULIAH");
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        submit_button.setBackground(new java.awt.Color(0, 0, 255));
+        submit_button.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        submit_button.setForeground(new java.awt.Color(255, 255, 255));
+        submit_button.setText("Submit");
+        submit_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submit_buttonActionPerformed(evt);
+            }
+        });
+
+        nilaiakhir_button.setBackground(new java.awt.Color(0, 0, 255));
+        nilaiakhir_button.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        nilaiakhir_button.setForeground(new java.awt.Color(255, 255, 255));
+        nilaiakhir_button.setText("Tampilkan Nilai Akhir");
+        nilaiakhir_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nilaiakhir_buttonActionPerformed(evt);
+            }
+        });
+
+        grade_button.setBackground(new java.awt.Color(0, 0, 255));
+        grade_button.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        grade_button.setForeground(new java.awt.Color(255, 255, 255));
+        grade_button.setText("Tampilkan Grade");
+        grade_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                grade_buttonActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(153, 204, 255));
+
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel2.setText("Nama Matkul :");
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel3.setText("Nilai Tugas :");
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jLabel6.setText("Nilai UAS :");
-
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel7.setText("Nilai UTS :");
+
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
+        jLabel6.setText("Nilai UAS :");
 
         nilaiuas_txt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +113,7 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel8.setText("Nilai Akhir :");
 
         nilaiakhir_txt.setEditable(false);
@@ -90,7 +123,7 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel9.setText("Grade :");
 
         grade_txt.setEditable(false);
@@ -100,29 +133,58 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
             }
         });
 
-        submit_button.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        submit_button.setText("Submit");
-        submit_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submit_buttonActionPerformed(evt);
-            }
-        });
-
-        nilaiakhir_button.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        nilaiakhir_button.setText("Tampilkan Nilai Akhir");
-        nilaiakhir_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nilaiakhir_buttonActionPerformed(evt);
-            }
-        });
-
-        grade_button.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
-        grade_button.setText("Tampilkan Grade");
-        grade_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                grade_buttonActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(namamatkul_txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nilaitugas_txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nilaiuts_txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nilaiuas_txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nilaiakhir_txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(grade_txt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(90, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(namamatkul_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nilaitugas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(nilaiuts_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(nilaiuas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nilaiakhir_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(grade_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,76 +192,34 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(jLabel9)
-                        .addGap(32, 32, 32))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(submit_button)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel8)))))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(200, 200, 200)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(submit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(84, 84, 84)
+                                .addComponent(nilaiakhir_button)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(grade_button))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(namamatkul_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nilaitugas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nilaiuts_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nilaiuas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nilaiakhir_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(grade_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(nilaiakhir_button)
-                        .addGap(104, 104, 104)
-                        .addComponent(grade_button)))
-                .addContainerGap(147, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(226, 226, 226))
+                        .addGap(296, 296, 296)
+                        .addComponent(jLabel1)))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(69, 69, 69)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(namamatkul_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(44, 44, 44)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(nilaitugas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nilaiuts_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nilaiuas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(nilaiakhir_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(grade_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submit_button)
                     .addComponent(nilaiakhir_button)
                     .addComponent(grade_button))
-                .addGap(39, 39, 39))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -228,8 +248,17 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
 
     private void submit_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submit_buttonActionPerformed
         // TODO add your handling code here:
-        
-        
+         // Validation to ensure all fields are filled
+        if (namamatkul_txt.getText().isEmpty() || 
+            nilaitugas_txt.getText().isEmpty() || 
+            nilaiuts_txt.getText().isEmpty() || 
+            nilaiuas_txt.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this, "Please fill out all fields before submitting.", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Prevent submission
+        }
+
+        // Existing submission logic
         addMhsController addMhs = new addMhsController();
         int jawab = JOptionPane.showOptionDialog(this,
             "Apakah Anda ingin memasukkan matkul lain?",
@@ -241,10 +270,10 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
             addMhs.addMatkul(new_matkul.getNim(),new_matkul.getNamaMatkul(), new_matkul.getNilaiTugas(), new_matkul.getNilaiUTS(), new_matkul.getNilaiUAS(), new_matkul.getNilaiAkhir(),String.valueOf(new_matkul.getGrade()));
             new addMahasiswa_matkul(mhs).setVisible(true);
         } else {
-            addMhs.addMatkul(new_matkul.getNim(),new_matkul.getNamaMatkul(), new_matkul.getNilaiTugas(), new_matkul.getNilaiUTS(), new_matkul.getNilaiUAS(), new_matkul.getNilaiAkhir(),String.valueOf(new_matkul.getGrade()));
+            addMhs.addMatkul(new_matkul.getNim(), new_matkul.getNamaMatkul(), new_matkul.getNilaiTugas(), new_matkul.getNilaiUTS(), new_matkul.getNilaiUAS(), new_matkul.getNilaiAkhir(), String.valueOf(new_matkul.getGrade()));
             new mainMenu().setVisible(true);
         }
-        this.dispose(); // Tutup form saat ini
+        this.dispose(); // Close the current form
     }//GEN-LAST:event_submit_buttonActionPerformed
 
     private void nilaiakhir_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nilaiakhir_buttonActionPerformed
@@ -320,6 +349,7 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField namamatkul_txt;
     private javax.swing.JButton nilaiakhir_button;
     private javax.swing.JTextField nilaiakhir_txt;

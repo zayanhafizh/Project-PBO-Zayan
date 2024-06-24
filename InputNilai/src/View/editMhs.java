@@ -6,6 +6,7 @@ package View;
 
 import javax.swing.JOptionPane;
 import Model.database;
+import Model.mahasiswa;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -29,6 +30,7 @@ import javax.swing.JFileChooser;
 public class editMhs extends javax.swing.JFrame {
 private String nim;
 private String id;
+private mahasiswa mhs;
     /**
      * Creates new form editMhs
      */
@@ -186,6 +188,12 @@ private String id;
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        back_button = new javax.swing.JButton();
+        edit_button = new javax.swing.JButton();
+        hapus_button = new javax.swing.JButton();
+        listNilai_button = new javax.swing.JButton();
+        export_button = new javax.swing.JToggleButton();
+        jPanel2 = new javax.swing.JPanel();
         nama_txt = new javax.swing.JTextField();
         nim_txt = new javax.swing.JTextField();
         kelas_txt = new javax.swing.JTextField();
@@ -197,29 +205,12 @@ private String id;
         jk_combo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        back_button = new javax.swing.JButton();
-        edit_button = new javax.swing.JButton();
-        hapus_button = new javax.swing.JButton();
-        listNilai_button = new javax.swing.JButton();
-        export_button = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Nama :");
-
-        jLabel2.setText("NIM :");
-
-        jLabel3.setText("Kelas :");
-
-        jLabel4.setText("Dosen PA :");
-
-        jk_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki - laki", "Perempuan", " " }));
-
-        jLabel5.setText("Jenis Kelamin :");
-
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 1, 24)); // NOI18N
-        jLabel6.setText("Detail Informasi Mahasiswa");
-
+        back_button.setBackground(new java.awt.Color(0, 0, 255));
+        back_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        back_button.setForeground(new java.awt.Color(255, 255, 255));
         back_button.setText("Kembali");
         back_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,6 +218,9 @@ private String id;
             }
         });
 
+        edit_button.setBackground(new java.awt.Color(0, 0, 255));
+        edit_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        edit_button.setForeground(new java.awt.Color(255, 255, 255));
         edit_button.setText("Edit");
         edit_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,6 +228,9 @@ private String id;
             }
         });
 
+        hapus_button.setBackground(new java.awt.Color(0, 0, 255));
+        hapus_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        hapus_button.setForeground(new java.awt.Color(255, 255, 255));
         hapus_button.setText("Hapus");
         hapus_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,6 +238,9 @@ private String id;
             }
         });
 
+        listNilai_button.setBackground(new java.awt.Color(0, 0, 255));
+        listNilai_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        listNilai_button.setForeground(new java.awt.Color(255, 255, 255));
         listNilai_button.setText("Lihat Daftar Nilai");
         listNilai_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,6 +248,9 @@ private String id;
             }
         });
 
+        export_button.setBackground(new java.awt.Color(0, 0, 255));
+        export_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        export_button.setForeground(new java.awt.Color(255, 255, 255));
         export_button.setText("Export to PDF");
         export_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,79 +258,129 @@ private String id;
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(153, 204, 255));
+
+        nama_txt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        nim_txt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        kelas_txt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        dosenpa_txt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Nama :");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setText("NIM :");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setText("Kelas :");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("Dosen PA :");
+
+        jk_combo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jk_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki - laki", "Perempuan", " " }));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("Jenis Kelamin :");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(15, 15, 15)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dosenpa_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jk_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(nim_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+                        .addComponent(kelas_txt)
+                        .addComponent(nama_txt, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addGap(50, 50, 50))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(nama_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nim_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(kelas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jk_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dosenpa_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(38, 38, 38))
+        );
+
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
+        jLabel6.setText("Detail Informasi Mahasiswa");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 83, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nama_txt)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(kelas_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-                                        .addComponent(dosenpa_txt, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(nim_txt, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(jk_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(109, 109, 109)
-                                        .addComponent(jLabel6)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(edit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(hapus_button, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(listNilai_button)
-                        .addGap(30, 30, 30)
-                        .addComponent(export_button, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(189, 189, 189))
+                .addGap(126, 126, 126)
+                .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(edit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(hapus_button, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(listNilai_button)
+                .addGap(32, 32, 32)
+                .addComponent(export_button, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(264, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(219, 219, 219))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel6)
-                .addGap(70, 70, 70)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nama_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nim_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(kelas_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dosenpa_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jk_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(hapus_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(listNilai_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(export_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69))
+                .addGap(48, 48, 48))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -481,6 +534,7 @@ private String id;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JComboBox<String> jk_combo;
     private javax.swing.JTextField kelas_txt;
     private javax.swing.JButton listNilai_button;

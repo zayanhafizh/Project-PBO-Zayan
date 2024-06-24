@@ -43,7 +43,9 @@ public class mainMenu extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo STIS2.png"))); // NOI18N
         jLabel1.setText("jLabel1");
 
+        to_list_button.setBackground(new java.awt.Color(0, 0, 255));
         to_list_button.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        to_list_button.setForeground(new java.awt.Color(255, 255, 255));
         to_list_button.setText("Lihat Daftar Nilai Mahasiswa");
         to_list_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -51,7 +53,9 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
 
+        adddata_button.setBackground(new java.awt.Color(0, 0, 255));
         adddata_button.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        adddata_button.setForeground(new java.awt.Color(255, 255, 255));
         adddata_button.setText("Tambah Data Nilai Mahasiswa");
         adddata_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,7 +63,9 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
 
+        logout_button.setBackground(new java.awt.Color(255, 255, 51));
         logout_button.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
+        logout_button.setForeground(new java.awt.Color(0, 0, 255));
         logout_button.setText("Logout");
         logout_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

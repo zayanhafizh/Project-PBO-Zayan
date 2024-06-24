@@ -78,7 +78,9 @@ Connection conn = null;
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 1, 14)); // NOI18N
         jLabel2.setText("Password :");
 
-        login_button.setFont(new java.awt.Font("Yu Gothic UI", 0, 12)); // NOI18N
+        login_button.setBackground(new java.awt.Color(0, 0, 255));
+        login_button.setFont(new java.awt.Font("Yu Gothic UI", 1, 12)); // NOI18N
+        login_button.setForeground(new java.awt.Color(255, 255, 255));
         login_button.setText("Login");
         login_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
