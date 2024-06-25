@@ -4,6 +4,7 @@
  */
 package View;
 
+import Controller.MhsController;
 import javax.swing.JOptionPane;
 import Model.database;
 import Model.mahasiswa;
@@ -61,12 +62,7 @@ private mahasiswa mhs;
                     nim_txt.setText(nim);
                     kelas_txt.setText(kelas);
                     dosenpa_txt.setText(dosenPA);
-                    System.out.print(jenis_kelamin);
-                    if ( jenis_kelamin == "Laki - laki") {
-                        jk_combo.setSelectedItem(0);
-                    } else {
-                        jk_combo.setSelectedItem(1);
-                    }
+                    jk_combo.setSelectedItem(jenis_kelamin);
                 } else {
                     JOptionPane.showMessageDialog(this, "Data mahasiswa tidak ditemukan", "Error", JOptionPane.ERROR_MESSAGE);
                     this.dispose(); // Tutup form jika data tidak ditemukan
@@ -401,6 +397,8 @@ private mahasiswa mhs;
 
     private void edit_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edit_buttonActionPerformed
         // TODO add your handling code here:
+        int id_baru = Integer.parseInt(id);
+        int nim_baru = Integer.parseInt(nim_txt.getText());
         String nama = nama_txt.getText();
         String kelas = kelas_txt.getText();
         String dosenPA = dosenpa_txt.getText();
@@ -408,32 +406,35 @@ private mahasiswa mhs;
 
         Connection conn = database.java_db(); // Mendapatkan koneksi dari kelas database
 
-        if (conn != null) {
-            String query = "UPDATE mahasiswa SET nama = ?, kelas = ?, dosen_pa = ?, jenis_kelamin = ? ,nim = ? WHERE id = ?";
-
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setString(1, nama);
-                stmt.setString(2, kelas);
-                stmt.setString(3, dosenPA);
-                stmt.setString(4, jenisKelamin);
-                stmt.setString(5, nim);
-                stmt.setString(6, id);
-
-                int rowsUpdated = stmt.executeUpdate();
-
-                if (rowsUpdated > 0) {
-                    JOptionPane.showMessageDialog(this, "Data mahasiswa berhasil diupdate");
-                    // Perbarui tampilan di listMahasiswa jika berhasil update
-                } else {
-                    JOptionPane.showMessageDialog(this, "Gagal mengupdate data mahasiswa", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mengupdate data", "Error", JOptionPane.ERROR_MESSAGE);
-            } finally {
-                database.closeConnection(conn);
-            }
-        }
+        MhsController edit = new MhsController();
+        int rowsUpdated = edit.editMhs(id_baru, nim_baru, nama, kelas, dosenPA, jenisKelamin);
+        
+//        if (conn != null) {
+//            String query = "UPDATE mahasiswa SET nama = ?, kelas = ?, dosen_pa = ?, jenis_kelamin = ? ,nim = ? WHERE id = ?";
+//
+//            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+//                stmt.setString(1, nama);
+//                stmt.setString(2, kelas);
+//                stmt.setString(3, dosenPA);
+//                stmt.setString(4, jenisKelamin);
+//                stmt.setString(5, nim);
+//                stmt.setString(6, id);
+//
+//                int rowsUpdated = stmt.executeUpdate();
+//
+//                if (rowsUpdated > 0) {
+//                    JOptionPane.showMessageDialog(this, "Data mahasiswa berhasil diupdate");
+//                    // Perbarui tampilan di listMahasiswa jika berhasil update
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "Gagal mengupdate data mahasiswa", "Error", JOptionPane.ERROR_MESSAGE);
+//                }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//                JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mengupdate data", "Error", JOptionPane.ERROR_MESSAGE);
+//            } finally {
+//                database.closeConnection(conn);
+//            }
+//        }
     }//GEN-LAST:event_edit_buttonActionPerformed
 
     private void hapus_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapus_buttonActionPerformed

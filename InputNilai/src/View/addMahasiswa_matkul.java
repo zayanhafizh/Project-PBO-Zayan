@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controller.addMhsController;
+import Controller.MhsController;
 import Model.mahasiswa;
 import Model.matkul;
 
@@ -259,7 +259,7 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
         }
 
         // Existing submission logic
-        addMhsController addMhs = new addMhsController();
+        MhsController addMhs = new MhsController();
         int jawab = JOptionPane.showOptionDialog(this,
             "Apakah Anda ingin memasukkan matkul lain?",
             "Pilihan",
@@ -267,13 +267,19 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
             JOptionPane.QUESTION_MESSAGE,
             null, null, null);
         if (jawab == JOptionPane.YES_OPTION) {
-            addMhs.addMatkul(new_matkul.getNim(),new_matkul.getNamaMatkul(), new_matkul.getNilaiTugas(), new_matkul.getNilaiUTS(), new_matkul.getNilaiUAS(), new_matkul.getNilaiAkhir(),String.valueOf(new_matkul.getGrade()));
-            new addMahasiswa_matkul(mhs).setVisible(true);
+            int insertedRows = addMhs.addMatkul(new_matkul.getNim(),new_matkul.getNamaMatkul(), new_matkul.getNilaiTugas(), new_matkul.getNilaiUTS(), new_matkul.getNilaiUAS(), new_matkul.getNilaiAkhir(),String.valueOf(new_matkul.getGrade()));
+            if(insertedRows > 0) {
+                new addMahasiswa_matkul(mhs).setVisible(true);
+                this.dispose(); // Close the current form
+            }
         } else {
-            addMhs.addMatkul(new_matkul.getNim(), new_matkul.getNamaMatkul(), new_matkul.getNilaiTugas(), new_matkul.getNilaiUTS(), new_matkul.getNilaiUAS(), new_matkul.getNilaiAkhir(), String.valueOf(new_matkul.getGrade()));
-            new mainMenu().setVisible(true);
+            int insertedRows = addMhs.addMatkul(new_matkul.getNim(), new_matkul.getNamaMatkul(), new_matkul.getNilaiTugas(), new_matkul.getNilaiUTS(), new_matkul.getNilaiUAS(), new_matkul.getNilaiAkhir(), String.valueOf(new_matkul.getGrade()));
+            if(insertedRows > 0) {
+                 new mainMenu().setVisible(true);
+                 this.dispose(); // Close the current form
+             }
         }
-        this.dispose(); // Close the current form
+       
     }//GEN-LAST:event_submit_buttonActionPerformed
 
     private void nilaiakhir_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nilaiakhir_buttonActionPerformed

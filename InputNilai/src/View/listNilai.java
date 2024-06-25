@@ -192,6 +192,7 @@ public class listNilai extends javax.swing.JFrame {
         // TODO add your handling code here:
         editMhs edit = new editMhs(nim);
         edit.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_back_buttonActionPerformed
 
     private void tambahnilai_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahnilai_buttonActionPerformed

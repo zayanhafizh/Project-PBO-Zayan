@@ -4,7 +4,7 @@
  */
 package View;
 
-import Controller.addMhsController;
+import Controller.MhsController;
 import Model.mahasiswa;
 import Model.matkul;
 
@@ -226,10 +226,16 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
                 new_mhs.setJK(jenisKelamin);
 
                 addMahasiswa_matkul addMatkul = new addMahasiswa_matkul(new_mhs); // Meneruskan objek mahasiswa
-                addMhsController addMhs = new addMhsController();
-                addMhs.addIdentity(new_mhs.getNim(), new_mhs.getNama(), new_mhs.getKelas(), new_mhs.getDosen_pa(), new_mhs.getJK());
-                addMatkul.setVisible(true);
-                this.dispose();
+                MhsController addMhs = new MhsController();
+                int rowsInserted = addMhs.addIdentity(new_mhs.getNim(), new_mhs.getNama(), new_mhs.getKelas(), new_mhs.getDosen_pa(), new_mhs.getJK());
+                
+                if(rowsInserted > 0) {
+                    addMatkul.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Masukkan identitas anda dengan benar");
+                }
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "NIM harus berupa angka!", "Error", JOptionPane.ERROR_MESSAGE);
             }
