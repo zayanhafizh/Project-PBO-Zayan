@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import Model.database;
+import Model.Database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,10 +13,10 @@ import java.sql.ResultSet;
  *
  * @author M Zayan Hafizh H
  */
-public class databaseController {
+public class DatabaseController {
     ResultSet rs = null;
     PreparedStatement pst = null;
-    Connection conn = (Connection) database.java_db();
+    Connection conn = (Connection) Database.java_db();
     
     private void insertMhs(){
         

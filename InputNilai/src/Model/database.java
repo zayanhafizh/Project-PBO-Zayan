@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author M Zayan Hafizh H
  */
-public class database {
+public class Database {
     public static Connection java_db() {
         Connection conn = null;
         try {

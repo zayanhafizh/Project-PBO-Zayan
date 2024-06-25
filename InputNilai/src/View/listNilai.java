@@ -4,8 +4,8 @@
  */
 package View;
 
-import Model.database;  // Import kelas database
-import Model.mahasiswa;
+import Model.Database;  // Import kelas database
+import Model.Mahasiswa;
 import java.sql.*;
 import java.util.Vector;
 import javax.swing.event.ListSelectionEvent;
@@ -15,12 +15,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author M Zayan Hafizh H
  */
-public class listNilai extends javax.swing.JFrame {
+public class ListNilai extends javax.swing.JFrame {
 
     private String nim;
     private final String[] columnNames = {"Id","Nama Matkul", "Nilai Tugas", "Nilai UTS", "Nilai UAS", "Nilai Akhir", "Grade"};
 
-    public listNilai(String nim) {
+    public ListNilai(String nim) {
         this.nim = nim;
         initComponents();
         fetchData();
@@ -28,7 +28,7 @@ public class listNilai extends javax.swing.JFrame {
     }
 
     private void fetchData() {
-        Connection conn = database.java_db();
+        Connection conn = Database.java_db();
         if (conn != null) {
             String query = "SELECT id, nama_matkul, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, grade FROM matkul WHERE nim_mhs = ?";
 
@@ -54,7 +54,7 @@ public class listNilai extends javax.swing.JFrame {
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
-                database.closeConnection(conn);
+                Database.closeConnection(conn);
             }
         }
     }
@@ -66,7 +66,7 @@ public class listNilai extends javax.swing.JFrame {
                 if (!event.getValueIsAdjusting() && jTable1.getSelectedRow() != -1) {
                     int selectedRow = jTable1.getSelectedRow();
                     String id = jTable1.getValueAt(selectedRow, 0).toString(); // Ambil NIM dari kolom pertama
-                    editNilai edit_nilai = new editNilai(id,nim);
+                    EditNilai edit_nilai = new EditNilai(id,nim);
                     edit_nilai.setVisible(true); // Tampilkan form editMhs
                     dispose(); // Tutup form listMahasiswa
                 }
@@ -190,17 +190,17 @@ public class listNilai extends javax.swing.JFrame {
 
     private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
         // TODO add your handling code here:
-        editMhs edit = new editMhs(nim);
+        EditMhs edit = new EditMhs(nim);
         edit.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_back_buttonActionPerformed
 
     private void tambahnilai_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahnilai_buttonActionPerformed
          // Buat objek mahasiswa dengan nim yang diterima dari konstruktor
-        mahasiswa mhs = new mahasiswa();
+        Mahasiswa mhs = new Mahasiswa();
         mhs.setNim(Integer.parseInt(nim)); // Atur nim berdasarkan nilai yang diterima
 
-        addMahasiswa_matkul add_mahasiswa_matkul = new addMahasiswa_matkul(mhs);
+        AddMahasiswaMatkul add_mahasiswa_matkul = new AddMahasiswaMatkul(mhs);
         add_mahasiswa_matkul.setVisible(true);
         dispose();
     }//GEN-LAST:event_tambahnilai_buttonActionPerformed
@@ -222,21 +222,23 @@ public class listNilai extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(listNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(listNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(listNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(listNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new listNilai("").setVisible(true);
+                new ListNilai("").setVisible(true);
             }
         });
     }

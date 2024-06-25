@@ -1,6 +1,6 @@
 package Model;
 
-public class matkul {
+public class Matkul {
     public static int instanceCount = 0; // Konvensi penamaan
     private int id;
     private String namaMatkul;

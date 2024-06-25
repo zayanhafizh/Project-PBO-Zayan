@@ -1,7 +1,7 @@
 package Controller;
 
-import Model.database;
-import View.mainMenu;
+import Model.Database;
+import View.MainMenu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ public class MhsController {
     PreparedStatement pst = null;
 
     public int addIdentity(int nim, String nama, String kelas, String dosen_pa, String jenis_kelamin) {
-        conn = database.java_db(); // Koneksi ke database
+        conn = Database.java_db(); // Koneksi ke database
         String sql = "INSERT INTO mahasiswa (nim, nama, kelas, dosen_pa, jenis_kelamin) VALUES (?, ?, ?, ?, ? )";
         int rowsInserted = 0;
 
@@ -72,7 +72,7 @@ public class MhsController {
             return 0;
         }
         
-        conn = database.java_db(); // Koneksi ke database
+        conn = Database.java_db(); // Koneksi ke database
         String sql = "INSERT INTO matkul(nama_matkul, nilai_tugas, nilai_uts, nilai_uas, nilai_akhir, nim_mhs, grade) VALUES (?, ?, ?, ?, ?, ?, ?)";
         int rowsInserted = 0;
         
@@ -114,7 +114,7 @@ public class MhsController {
     }
     
     public int editMhs(int id, int nim, String nama, String kelas, String dosen_pa, String jenis_kelamin) {
-        Connection conn = database.java_db(); // Mendapatkan koneksi dari kelas database
+        Connection conn = Database.java_db(); // Mendapatkan koneksi dari kelas database
         int rowsUpdated = 0;
 
         // Convert NIM to String for validation
@@ -152,7 +152,7 @@ public class MhsController {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengupdate data", "Error", JOptionPane.ERROR_MESSAGE);
             } finally {
-                database.closeConnection(conn);
+                Database.closeConnection(conn);
             }
         }
 
@@ -166,7 +166,7 @@ public class MhsController {
             return 0;
         }
 
-        Connection conn = database.java_db();
+        Connection conn = Database.java_db();
         int rowsUpdated = 0;
 
         if (conn != null) {
@@ -192,7 +192,7 @@ public class MhsController {
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Terjadi kesalahan saat mengupdate data", "Error", JOptionPane.ERROR_MESSAGE);
             } finally {
-                database.closeConnection(conn);
+                Database.closeConnection(conn);
             }
         }
         return rowsUpdated;

@@ -4,7 +4,7 @@
  */
 package View;
 
-import Model.database;  // Import kelas database
+import Model.Database;  // Import kelas database
 import java.sql.*;
 import java.util.Vector;
 import javax.swing.event.ListSelectionEvent;
@@ -15,12 +15,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author M Zayan Hafizh H
  */
-public class listMahasiswa extends javax.swing.JFrame {
+public class ListMahasiswa extends javax.swing.JFrame {
 
     /**
      * Creates new form listMahasiswa
      */
-    public listMahasiswa() {
+    public ListMahasiswa() {
         initComponents();
         fetchData();  // Memanggil method fetchData saat frame dibuka
         addTableClickListener();  // Tambahkan pemanggilan method addTableClickListener
@@ -29,7 +29,7 @@ public class listMahasiswa extends javax.swing.JFrame {
 
      // Method untuk koneksi ke database dan mengambil data
     private void fetchData() {
-        Connection conn = database.java_db();  // Mendapatkan koneksi dari kelas database
+        Connection conn = Database.java_db();  // Mendapatkan koneksi dari kelas database
 
         if (conn != null) {
             // Query SQL untuk mengambil data dari tabel mahasiswa
@@ -58,14 +58,14 @@ public class listMahasiswa extends javax.swing.JFrame {
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
-                database.closeConnection(conn);  // Menutup koneksi setelah selesai
+                Database.closeConnection(conn);  // Menutup koneksi setelah selesai
             }
         }
     }
 
     // Method for fetching data from the database
     private void search(String keyword) {
-        Connection conn = database.java_db();  // Get connection from database class
+        Connection conn = Database.java_db();  // Get connection from database class
 
         if (conn != null) {
             // SQL query to fetch data from the mahasiswa table
@@ -106,7 +106,7 @@ public class listMahasiswa extends javax.swing.JFrame {
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
-                database.closeConnection(conn);  // Close the connection after use
+                Database.closeConnection(conn);  // Close the connection after use
             }
         }
     }
@@ -118,7 +118,7 @@ public class listMahasiswa extends javax.swing.JFrame {
                 if (!event.getValueIsAdjusting() && jTable1.getSelectedRow() != -1) {
                     int selectedRow = jTable1.getSelectedRow();
                     String nim = jTable1.getValueAt(selectedRow, 0).toString(); // Ambil NIM dari kolom pertama
-                    editMhs edit_mhs = new editMhs(nim);
+                    EditMhs edit_mhs = new EditMhs(nim);
                     edit_mhs.setVisible(true); // Tampilkan form editMhs
                     dispose(); // Tutup form listMahasiswa
                 }
@@ -257,7 +257,7 @@ public class listMahasiswa extends javax.swing.JFrame {
 
     private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
         // TODO add your handling code here:
-        mainMenu main = new mainMenu();
+        MainMenu main = new MainMenu();
         main.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_back_buttonActionPerformed
@@ -279,20 +279,21 @@ public class listMahasiswa extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(listMahasiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListMahasiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(listMahasiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListMahasiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(listMahasiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListMahasiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(listMahasiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListMahasiswa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new listMahasiswa().setVisible(true);
+                new ListMahasiswa().setVisible(true);
             }
         });
     }

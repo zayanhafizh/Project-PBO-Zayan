@@ -10,13 +10,13 @@ import java.util.ArrayList;
  *
  * @author M Zayan Hafizh H
  */
-public class mahasiswa {
+public class Mahasiswa {
     public static int instancecount = 0;
     private int id;
     private int nim;
     private String nama;
     private String kelas;
-    private ArrayList<matkul> daftarMatkul;
+    private ArrayList<Matkul> daftarMatkul;
     private String dosen_pa;
     private String jenis_kelamin;
 
@@ -28,7 +28,7 @@ public class mahasiswa {
         this.jenis_kelamin = jenis_kelamin;
     }
 
-    public mahasiswa(){
+    public Mahasiswa(){
         this.id = ++instancecount;
         daftarMatkul = new ArrayList<>();
     }
@@ -38,7 +38,7 @@ public class mahasiswa {
     }
 
     public static void setInstancecount(int instancecount) {
-        mahasiswa.instancecount = instancecount;
+        Mahasiswa.instancecount = instancecount;
     }
 
     public int getId() {
@@ -69,7 +69,7 @@ public class mahasiswa {
         this.kelas = kelas;
     }
 
-    public void tambahMatkul(matkul m) {
+    public void tambahMatkul(Matkul m) {
         daftarMatkul.add(m);
     }
 

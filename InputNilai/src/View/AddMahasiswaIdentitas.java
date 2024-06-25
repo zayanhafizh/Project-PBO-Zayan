@@ -5,8 +5,8 @@
 package View;
 
 import Controller.MhsController;
-import Model.mahasiswa;
-import Model.matkul;
+import Model.Mahasiswa;
+import Model.Matkul;
 
 import static java.lang.Integer.parseInt;
 import javax.swing.JOptionPane;
@@ -15,13 +15,13 @@ import javax.swing.JOptionPane;
  *
  * @author M Zayan Hafizh H
  */
-public class addMahasiswa_identitas extends javax.swing.JFrame {
-    private mahasiswa new_mhs;
+public class AddMahasiswaIdentitas extends javax.swing.JFrame {
+    private Mahasiswa new_mhs;
     /**
      * Creates new form addMahasiswa
      */
-    public addMahasiswa_identitas() {
-        new_mhs = new mahasiswa();
+    public AddMahasiswaIdentitas() {
+        new_mhs = new Mahasiswa();
         initComponents();
     }
 
@@ -225,7 +225,7 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
                 new_mhs.setDosen_pa(dosenPa);
                 new_mhs.setJK(jenisKelamin);
 
-                addMahasiswa_matkul addMatkul = new addMahasiswa_matkul(new_mhs); // Meneruskan objek mahasiswa
+                AddMahasiswaMatkul addMatkul = new AddMahasiswaMatkul(new_mhs); // Meneruskan objek mahasiswa
                 MhsController addMhs = new MhsController();
                 int rowsInserted = addMhs.addIdentity(new_mhs.getNim(), new_mhs.getNama(), new_mhs.getKelas(), new_mhs.getDosen_pa(), new_mhs.getJK());
                 
@@ -248,7 +248,7 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
 
     private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
         // TODO add your handling code here:
-        mainMenu main = new mainMenu();
+        MainMenu main = new MainMenu();
         main.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_back_buttonActionPerformed
@@ -270,21 +270,23 @@ public class addMahasiswa_identitas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addMahasiswa_identitas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMahasiswaIdentitas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addMahasiswa_identitas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMahasiswaIdentitas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addMahasiswa_identitas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMahasiswaIdentitas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addMahasiswa_identitas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMahasiswaIdentitas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addMahasiswa_identitas().setVisible(true);
+                new AddMahasiswaIdentitas().setVisible(true);
             }
         });
     }

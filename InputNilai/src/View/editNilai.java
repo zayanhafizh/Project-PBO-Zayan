@@ -4,8 +4,8 @@
  */
 package View;
 
-import Model.matkul;
-import Model.database;
+import Model.Matkul;
+import Model.Database;
 import com.itextpdf.text.BaseColor;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,24 +38,24 @@ import javax.swing.JOptionPane;
  *
  * @author M Zayan Hafizh H
  */
-public class editNilai extends javax.swing.JFrame {
+public class EditNilai extends javax.swing.JFrame {
 private String id;
-private matkul new_matkul;
+private Matkul new_matkul;
 private String nim;
     /**
      * Creates new form editNilai
      */
-    public editNilai(String id, String nim) {
+    public EditNilai(String id, String nim) {
         initComponents();
         this.nim = nim;
         this.id = id;
-        this.new_matkul = new matkul();
+        this.new_matkul = new Matkul();
         displayNilai();
         addListeners();
     }
 
     private void displayNilai() {
-        Connection conn = database.java_db(); // Mendapatkan koneksi dari kelas database
+        Connection conn = Database.java_db(); // Mendapatkan koneksi dari kelas database
 
         if (conn != null) {
             String query = "SELECT * FROM matkul WHERE id = ?";
@@ -96,7 +96,7 @@ private String nim;
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
-                database.closeConnection(conn);
+                Database.closeConnection(conn);
             }
         }
     }
@@ -172,7 +172,7 @@ private String nim;
     }
     
     private void editNilaiToDatabase() {
-        Connection conn = database.java_db();
+        Connection conn = Database.java_db();
         if (conn != null) {
             String query = "UPDATE matkul SET nilai_tugas = ?, nilai_uts = ?, nilai_uas = ?, nilai_akhir = ?, grade = ? , nama_matkul = ? WHERE id = ?";
 
@@ -195,13 +195,13 @@ private String nim;
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
-                database.closeConnection(conn);
+                Database.closeConnection(conn);
             }
         }
     }
 
     private void deleteNilaiFromDatabase() {
-        Connection conn = database.java_db();
+        Connection conn = Database.java_db();
         if (conn != null) {
             String query = "DELETE FROM matkul WHERE id = ?";
 
@@ -218,7 +218,7 @@ private String nim;
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
-                database.closeConnection(conn);
+                Database.closeConnection(conn);
             }
         }
     }
@@ -440,7 +440,7 @@ private String nim;
 
     private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
         // TODO add your handling code here:
-        listNilai list_nilai = new listNilai(nim);
+        ListNilai list_nilai = new ListNilai(nim);
         list_nilai.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_back_buttonActionPerformed
@@ -473,20 +473,21 @@ private String nim;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(editNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(editNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(editNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(editNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditNilai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new editNilai("","").setVisible(true);
+                new EditNilai("","").setVisible(true);
             }
         });
     }

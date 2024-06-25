@@ -4,9 +4,9 @@
  */
 package Controller;
 
-import Model.user;
-import Model.database;
-import View.mainMenu;
+import Model.User;
+import Model.Database;
+import View.MainMenu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  *
  * @author M Zayan Hafizh H
  */
-public class loginController {
+public class LoginController {
     public boolean validateLogin(String Username, String Password, Connection conn) {
         ResultSet rs = null;
         PreparedStatement pst = null;
@@ -36,7 +36,7 @@ public class loginController {
             if (rs.next()) {
                 int id = rs.getInt("id");
                 JOptionPane.showMessageDialog(null, "Login successful. Welcome!");
-                mainMenu main = new mainMenu();
+                MainMenu main = new MainMenu();
                 main.setVisible(true);
                 return true;
             } else {

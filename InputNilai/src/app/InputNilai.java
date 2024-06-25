@@ -4,7 +4,7 @@
  */
 package app;
 
-import View.login;
+import View.Login;
 
 /**
  *
@@ -17,7 +17,7 @@ public class InputNilai {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        login login = new login();
+        Login login = new Login();
         login.setVisible(true);
     }
     

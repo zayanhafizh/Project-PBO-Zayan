@@ -5,8 +5,8 @@
 package View;
 
 import Controller.MhsController;
-import Model.mahasiswa;
-import Model.matkul;
+import Model.Mahasiswa;
+import Model.Matkul;
 
 import javax.swing.*;
 
@@ -17,15 +17,15 @@ import static java.lang.Integer.parseInt;
  *
  * @author M Zayan Hafizh H
  */
-public class addMahasiswa_matkul extends javax.swing.JFrame {
-    private matkul new_matkul;
-    private mahasiswa mhs; // Tambahkan variabel untuk referensi ke objek mahasiswa
+public class AddMahasiswaMatkul extends javax.swing.JFrame {
+    private Matkul new_matkul;
+    private Mahasiswa mhs; // Tambahkan variabel untuk referensi ke objek mahasiswa
     /**
      * Creates new form addMahasiswa_matkul
      */
-    public addMahasiswa_matkul(mahasiswa mhs) { // Terima objek mahasiswa sebagai parameter konstruktor
+    public AddMahasiswaMatkul(Mahasiswa mhs) { // Terima objek mahasiswa sebagai parameter konstruktor
         this.mhs = mhs; // Inisialisasi objek mahasiswa dari parameter konstruktor
-        new_matkul = new matkul();
+        new_matkul = new Matkul();
         new_matkul.setNim(mhs.getNim());
         initComponents();
     }
@@ -269,13 +269,13 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
         if (jawab == JOptionPane.YES_OPTION) {
             int insertedRows = addMhs.addMatkul(new_matkul.getNim(),new_matkul.getNamaMatkul(), new_matkul.getNilaiTugas(), new_matkul.getNilaiUTS(), new_matkul.getNilaiUAS(), new_matkul.getNilaiAkhir(),String.valueOf(new_matkul.getGrade()));
             if(insertedRows > 0) {
-                new addMahasiswa_matkul(mhs).setVisible(true);
+                new AddMahasiswaMatkul(mhs).setVisible(true);
                 this.dispose(); // Close the current form
             }
         } else {
             int insertedRows = addMhs.addMatkul(new_matkul.getNim(), new_matkul.getNamaMatkul(), new_matkul.getNilaiTugas(), new_matkul.getNilaiUTS(), new_matkul.getNilaiUAS(), new_matkul.getNilaiAkhir(), String.valueOf(new_matkul.getGrade()));
             if(insertedRows > 0) {
-                 new mainMenu().setVisible(true);
+                 new MainMenu().setVisible(true);
                  this.dispose(); // Close the current form
              }
         }
@@ -319,18 +319,19 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addMahasiswa_matkul.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMahasiswaMatkul.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addMahasiswa_matkul.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMahasiswaMatkul.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addMahasiswa_matkul.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMahasiswaMatkul.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addMahasiswa_matkul.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AddMahasiswaMatkul.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         // Buat objek mahasiswa dari jendela addMahasiswa_identitas
-        mahasiswa mhs = new mahasiswa();
+        Mahasiswa mhs = new Mahasiswa();
         mhs.setNama("Nama Mahasiswa"); // Ganti dengan nama mahasiswa yang sesuai
         mhs.setNim(1234567890); // Ganti dengan nim mahasiswa yang sesuai
         mhs.setKelas("Kelas Mahasiswa"); // Ganti dengan kelas mahasiswa yang sesuai
@@ -339,7 +340,7 @@ public class addMahasiswa_matkul extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addMahasiswa_matkul(mhs).setVisible(true);
+                new AddMahasiswaMatkul(mhs).setVisible(true);
             }
         });
     }

@@ -6,8 +6,8 @@ package View;
 
 import Controller.MhsController;
 import javax.swing.JOptionPane;
-import Model.database;
-import Model.mahasiswa;
+import Model.Database;
+import Model.Mahasiswa;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -28,21 +28,21 @@ import javax.swing.JFileChooser;
  *
  * @author M Zayan Hafizh H
  */
-public class editMhs extends javax.swing.JFrame {
+public class EditMhs extends javax.swing.JFrame {
 private String nim;
 private String id;
-private mahasiswa mhs;
+private Mahasiswa mhs;
     /**
      * Creates new form editMhs
      */
-    public editMhs(String nim) {
+    public EditMhs(String nim) {
         initComponents();
         this.nim = nim;
         displayMahasiswa();
     }
 
     private void displayMahasiswa() {
-        Connection conn = database.java_db(); // Mendapatkan koneksi dari kelas database
+        Connection conn = Database.java_db(); // Mendapatkan koneksi dari kelas database
 
         if (conn != null) {
             String query = "SELECT * FROM mahasiswa WHERE nim = ?";
@@ -70,7 +70,7 @@ private mahasiswa mhs;
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
-                database.closeConnection(conn);
+                Database.closeConnection(conn);
             }
         }
     }
@@ -89,7 +89,7 @@ private mahasiswa mhs;
                 document.add(new Paragraph("Detail Identitas Mahasiswa\n\n"));
 
                 // Menambah data mahasiswa
-                Connection conn = database.java_db();
+                Connection conn = Database.java_db();
                 if (conn != null) {
                     String query = "SELECT * FROM mahasiswa WHERE nim = ?";
                     try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -105,7 +105,7 @@ private mahasiswa mhs;
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(this, "Gagal mengambil data dari database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } finally {
-                        database.closeConnection(conn);
+                        Database.closeConnection(conn);
                     }
                 }
 
@@ -129,7 +129,7 @@ private mahasiswa mhs;
                 }
 
                 // Mengisi tabel dengan data matkul
-                conn = database.java_db();
+                conn = Database.java_db();
                 if (conn != null) {
                     String query = "SELECT * FROM matkul WHERE nim_mhs = ?";
                     try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -161,7 +161,7 @@ private mahasiswa mhs;
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(this, "Gagal mengambil data dari database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     } finally {
-                        database.closeConnection(conn);
+                        Database.closeConnection(conn);
                     }
                 }
 
@@ -404,7 +404,7 @@ private mahasiswa mhs;
         String dosenPA = dosenpa_txt.getText();
         String jenisKelamin = jk_combo.getSelectedItem().toString();
 
-        Connection conn = database.java_db(); // Mendapatkan koneksi dari kelas database
+        Connection conn = Database.java_db(); // Mendapatkan koneksi dari kelas database
 
         MhsController edit = new MhsController();
         int rowsUpdated = edit.editMhs(id_baru, nim_baru, nama, kelas, dosenPA, jenisKelamin);
@@ -439,7 +439,7 @@ private mahasiswa mhs;
 
     private void hapus_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapus_buttonActionPerformed
         // TODO add your handling code here:
-        Connection conn = database.java_db(); // Mendapatkan koneksi dari kelas database
+        Connection conn = Database.java_db(); // Mendapatkan koneksi dari kelas database
 
         if (conn != null) {
             int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data mahasiswa ini?", "Konfirmasi Hapus Data", JOptionPane.YES_NO_OPTION);
@@ -462,7 +462,7 @@ private mahasiswa mhs;
                     e.printStackTrace();
                     JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menghapus data", "Error", JOptionPane.ERROR_MESSAGE);
                 } finally {
-                    database.closeConnection(conn);
+                    Database.closeConnection(conn);
                 }
             }
         }
@@ -470,14 +470,14 @@ private mahasiswa mhs;
 
     private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
         // TODO add your handling code here:
-        listMahasiswa listMhs = new listMahasiswa();
+        ListMahasiswa listMhs = new ListMahasiswa();
         listMhs.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_back_buttonActionPerformed
 
     private void listNilai_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listNilai_buttonActionPerformed
         // TODO add your handling code here:
-        listNilai listNilai = new listNilai(nim);
+        ListNilai listNilai = new ListNilai(nim);
         listNilai.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_listNilai_buttonActionPerformed
@@ -504,20 +504,21 @@ private mahasiswa mhs;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(editMhs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditMhs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(editMhs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditMhs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(editMhs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditMhs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(editMhs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditMhs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new editMhs("").setVisible(true);
+                new EditMhs("").setVisible(true);
             }
         });
     }
